@@ -10,7 +10,6 @@ git clone https://github.com/MaximeLibert/fundtransfer.git
 cd fundtransfer
 ```
 
-This command will start the MariaDB database.
 
 ### 2. Build the Application
 ```
@@ -21,6 +20,7 @@ mvn clean package
 ```
 docker-compose up -d
 ```
+This command will start the MariaDB database.
 
 ### 4. Run the application
 ```
