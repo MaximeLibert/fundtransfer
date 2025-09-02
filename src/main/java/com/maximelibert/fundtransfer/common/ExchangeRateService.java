@@ -1,18 +1,15 @@
 package com.maximelibert.fundtransfer.common;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.HttpServerErrorException;
-import org.springframework.web.client.ResourceAccessException;
-import org.springframework.web.client.RestClientException;
-import org.springframework.web.client.RestTemplate;
-
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClientException;
+import org.springframework.web.client.RestTemplate;
 
 @Service
 public class ExchangeRateService {
@@ -44,6 +41,7 @@ public class ExchangeRateService {
 
             Map<String, Double> rates = (Map<String, Double>) response.get("rates");
 
+            // Use USD as base because free version of API
             BigDecimal fromRate = fromCurrency.name().equals("USD")
                     ? BigDecimal.ONE
                     : BigDecimal.valueOf(rates.get(fromCurrency.name()));
