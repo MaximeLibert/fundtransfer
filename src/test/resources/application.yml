@@ -13,3 +13,9 @@ spring:
   flyway:
     enabled: true
     locations: classpath:db/migration
+
+openexchangerates:
+  api:
+    url: https://openexchangerates.org/api/latest.json
+  app:
+    id: 9edfab24b4384130955653e25d5c31f7
