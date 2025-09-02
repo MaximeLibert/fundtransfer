@@ -4,6 +4,7 @@ import com.maximelibert.fundtransfer.common.ExchangeRateServiceException;
 import com.maximelibert.fundtransfer.transfer.dto.TransferRequestDTO;
 import com.maximelibert.fundtransfer.transfer.dto.TransferResponseDTO;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.persistence.OptimisticLockException;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
@@ -28,11 +29,11 @@ public class TransferController {
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<TransferResponseDTO> transferFunds(
             @RequestBody(required = true) @Valid TransferRequestDTO request)
-            throws ExchangeRateServiceException, TransferException {
+            throws ExchangeRateServiceException, TransferException, OptimisticLockException {
         try {
             TransferResponseDTO response = transferService.transfer(request);
             return ResponseEntity.ok(response);
-        } catch (TransferException | ExchangeRateServiceException e) {
+        } catch (TransferException | ExchangeRateServiceException | OptimisticLockException e) {
             throw e;
         }
     }
@@ -47,9 +48,10 @@ public class TransferController {
         return ResponseEntity.status(e.getHttpStatus()).body(Map.of("error", e.getMessage()));
     }
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<Map<String, String>> handleGenericException(Exception e) {
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(Map.of("error", "An unexpected error occurred."));
+    @ExceptionHandler(OptimisticLockException.class)
+    public ResponseEntity<Map<String, String>> handleOptimisticLockException(OptimisticLockException e) {
+        return ResponseEntity.status(HttpStatus.CONFLICT)
+                .body(Map.of("error", "Account is being modified by another transaction, please retry."));
     }
+
 }
