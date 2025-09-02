@@ -1,0 +1,40 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /fundtransfer-api
+
+spring:
+  application:
+    name: fundtransfert
+
+  datasource:
+    url: jdbc:mariadb://localhost:13306/fundtransfert
+    driver-class-name: org.mariadb.jdbc.Driver
+    username: funduser
+    password: fundpass
+
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MariaDBDialect
+        
+springdoc:
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui.html
+  api-docs:
+    enabled: true
+    path: /v3/api-docs
+
+openexchangerates:
+  api:
+    url: https://openexchangerates.org/api/latest.json
+  app:
+    id: 9edfab24b4384130955653e25d5c31f7
