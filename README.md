@@ -2,7 +2,7 @@
 
 A Spring Boot application for transferring funds between accounts with currency conversion.
 
-In order to test the application, the database is pre-filled with existing accounts
+In order for the application to work, the database is pre-filled with existing accounts.
 
 | id | owner_id | currency | balance  |
 |----|----------|----------|----------|
