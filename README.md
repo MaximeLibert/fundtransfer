@@ -2,6 +2,21 @@
 
 A Spring Boot application for transferring funds between accounts with currency conversion.
 
+In order to test the application, the database is pre-filled with existing accounts
+
+| id | owner_id | currency | balance  |
+|----|----------|----------|----------|
+| 1  | 1        | USD      | 1000.00  |
+| 2  | 2        | EUR      | 500.00   |
+| 3  | 3        | GBP      | 750.00   |
+| 4  | 4        | GBP      | 1750.00  |
+
+**Explanation:**
+- **id:** The unique identifier for the account.
+- **owner_id:** The unique identifier for the account owner.
+- **currency:** The currency of the account (USD, EUR, GBP).
+- **balance:** The current balance in the account.
+
 ## Getting Started
 
 ### 1. Clone the Repository
